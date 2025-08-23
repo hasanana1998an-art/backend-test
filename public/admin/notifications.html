@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>الإشعارات | لوحة المشرف</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #f5f5f5;
+                margin: 20px;
+            }
+
+            h1 {
+                color: #003366;
+                text-align: center;
+            }
+
+            .notification {
+                background: white;
+                padding: 15px 20px;
+                margin: 10px auto;
+                border-radius: 8px;
+                max-width: 600px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .notification.unread {
+                border-left: 5px solid #ff9800;
+            }
+
+            .mark-read-btn {
+                float: left;
+                background: #003366;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .mark-read-btn:hover {
+                background: #001f4d;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>الإشعارات</h1>
+        <div id="notifications-container"></div>
+
+        <script>
+        const API_BASE = "http://127.0.0.1:8000/api";
+        const token = localStorage.getItem("access_token");
+
+        async function fetchNotifications() {
+            if (!token) return alert("غير مسجل الدخول");
+
+            try {
+                let res = await fetch(`${API_BASE}/notifications`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                let data = await res.json();
+                const container = document.getElementById("notifications-container");
+                container.innerHTML = "";
+
+                data.notifications.forEach(n => {
+                    const div = document.createElement("div");
+                    div.className = "notification" + (n.read_at ? "" : " unread");
+                    div.innerHTML = `
+                        <p>${n.data}</p>
+                        ${!n.read_at ? `<button class="mark-read-btn" onclick="markRead(${n.id}, this)">تم القراءة</button>` : ""}
+                    `;
+                    container.appendChild(div);
+                });
+
+                console.log("إجمالي الإشعارات الجديدة:", data.new_count);
+
+            } catch(e) {
+                console.error("خطأ في جلب الإشعارات:", e);
+            }
+        }
+
+        async function markRead(id, btn) {
+            try {
+                let res = await fetch(`${API_BASE}/notifications/${id}/read`, {
+                    method: "PUT",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    btn.parentElement.classList.remove("unread");
+                    btn.remove();
+                }
+            } catch(e) {
+                console.error("خطأ في تعليم الإشعار كمقروء:", e);
+            }
+        }
+
+        window.onload = fetchNotifications;
+        </script>
+    </body>
+
+</html>

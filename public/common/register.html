@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>التسجيل | متجر الطاقة الذكية</title>
+        <style>
+            /* الخطوط والخلفية */
+            body {
+                font-family: Tahoma, sans-serif;
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                background: linear-gradient(135deg, #00b894, #6c63ff);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                animation: backgroundAnimation 15s ease infinite;
+            }
+
+            @keyframes backgroundAnimation {
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            /* البطاقة */
+            .card {
+                background: #fff;
+                padding: 40px 30px;
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+                width: 360px;
+                text-align: center;
+                transform: translateY(-50px);
+                opacity: 0;
+                animation: cardFadeIn 1s forwards;
+            }
+
+            @keyframes cardFadeIn {
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .card h2 {
+                margin-bottom: 25px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 14px;
+                text-align: right;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                transition: 0.3s;
+            }
+
+            input:focus,
+            select:focus {
+                border-color: #6c63ff;
+                box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+                outline: none;
+            }
+
+            button {
+                width: 100%;
+                padding: 14px;
+                background: #28a745;
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            button:hover {
+                background: #218838;
+            }
+
+            .login-btn {
+                margin-top: 15px;
+                display: block;
+                text-decoration: none;
+                color: #6c63ff;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+
+            .login-btn:hover {
+                color: #5848c2;
+                text-decoration: underline;
+            }
+
+            .card p {
+                margin-top: 15px;
+                font-size: 14px;
+                color: #555;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="card">
+            <h2>إنشاء حساب جديد</h2>
+            <form id="registerForm">
+                <label>الاسم الكامل</label>
+                <input type="text" id="name" placeholder="أدخل اسمك الكامل" required>
+
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="example@email.com" required>
+
+                <label>كلمة المرور</label>
+                <input type="password" id="password" placeholder="********" required>
+
+                <label>تأكيد كلمة المرور</label>
+                <input type="password" id="password_confirmation" placeholder="********" required>
+
+                <label>اختر نوع الحساب</label>
+                <select id="role" required>
+                    <option value="buyer">مشتري</option>
+                    <option value="seller">بائع</option>
+                </select>
+
+                <button type="submit">تسجيل</button>
+            </form>
+
+            <a href="login.html" class="login-btn">لديك حساب؟ تسجيل الدخول</a>
+            <p>سجّل حسابك الآن للتمتع بتجربة التسوق الكاملة!</p>
+        </div>
+
+        <script>
+            document.getElementById("registerForm").addEventListener("submit", async function (e)
+            {
+                e.preventDefault();
+
+                const data = {
+                    name: document.getElementById("name").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    password: document.getElementById("password").value,
+                    password_confirmation: document.getElementById("password_confirmation").value,
+                    role: document.getElementById("role").value
+                };
+
+                try
+                {
+                    const response = await fetch("http://127.0.0.1:8000/api/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    if (result.access_token)
+                    {
+                        localStorage.setItem("access_token", result.access_token);
+                        localStorage.setItem("role", result.user.role);
+                        localStorage.setItem("user", JSON.stringify(result.user));
+
+                        if (result.user.role === "buyer")
+                        {
+                            window.location.href = "../buyer/index.html";
+                        } else if (result.user.role === "seller")
+                        {
+                            window.location.href = "../seller/index.html";
+                        } else
+                        {
+                            window.location.href = "../admin/index.html";
+                        }
+                    } else
+                    {
+                        alert(result.message || "تم التسجيل بنجاح، يرجى تسجيل الدخول.");
+                        window.location.href = "login.html";
+                    }
+                } catch (err)
+                {
+                    console.error(err);
+                    alert("تعذر الاتصال بالخادم. تحقق من API أو الاتصال بالإنترنت.");
+                }
+            });
+        </script>
+    </body>
+
+</html>

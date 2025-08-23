@@ -1,0 +1,290 @@
+### 1. تسجيل مستخدم جديد (مشتري)
+POST http://127.0.0.1:8000/api/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "buyer1",
+  "email": "buyer1@example.com",
+  "password": "password123",
+  "password_confirmation": "password123",
+  "role": "buyer"
+}
+
+### 2. تسجيل مستخدم جديد (بائع)
+POST http://127.0.0.1:8000/api/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "seller3",
+  "email": "seller3@example.com",
+  "password": "12345678",
+  "password_confirmation": "12345678",
+  "role": "seller"
+}
+
+### 3. تسجيل مستخدم جديد (مشرف)
+POST http://127.0.0.1:8000/api/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "admin1",
+  "email": "admin1@example.com",
+  "password": "password123",
+  "password_confirmation": "password123",
+  "role": "admin"
+}
+
+### 4. تسجيل الدخول كمشتري
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "12345678"
+}
+
+### 5. تسجيل الدخول كبائع
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "seller1@example.com",
+  "password": "password1234"
+}
+
+### 6. تسجيل الدخول كمشرف
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "admin1@example.com",
+  "password": "password123"
+}
+
+### 7. جلب بيانات المستخدم الحالي (ضع التوكن المناسب)
+GET http://127.0.0.1:8000/api/user
+Accept: application/json
+Authorization: Bearer 5|imukRVtbQhHiWH4bwcrZFt0OCiFNiD2pRzhyWrFcf0df15b3
+
+### 8. عرض المنتجات (بدون تسجيل دخول)
+GET http://127.0.0.1:8000/api/products
+Accept: application/json
+
+### 9. عرض تفاصيل منتج
+GET http://127.0.0.1:8000/api/products/25
+Accept: application/json
+
+### 10. عرض التصنيفات
+GET http://127.0.0.1:8000/api/categories
+Accept: application/json
+
+### 11. إضافة تصنيف (مشرف)
+POST http://127.0.0.1:8000/api/categories
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 61|SDTUxsLK88rHcEbVMjeb7nAvJiAYmef8g3UryWyh89f7b190
+
+{
+  "name": "أجهزة كهربائية"
+}
+
+### 12. تعديل تصنيف (مشرف)
+PUT http://127.0.0.1:8000/api/categories/12
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 61|SDTUxsLK88rHcEbVMjeb7nAvJiAYmef8g3UryWyh89f7b190
+
+{
+  "name": "أجهزة كهربائية معدلة"
+}
+
+### 13. حذف تصنيف (مشرف)
+DELETE http://127.0.0.1:8000/api/categories/12
+Accept: application/json
+Authorization: Bearer 61|SDTUxsLK88rHcEbVMjeb7nAvJiAYmef8g3UryWyh89f7b190
+
+### 14. إضافة منتج (بائع أو مشرف)
+POST http://127.0.0.1:8000/api/products
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 2|bBeorsK2w7OsZlQrnclOi5bsM9enKWZgtBlUFLwuec3cc219
+
+{
+  "name": "لوح طاقة جديد",
+  "description": "لوح عالي الكفاءة",
+  "price": 500.5,
+  "category_id": 1,
+  "stock": 10,
+  "stock_quantity" : 20
+}
+
+### 15. تعديل منتج (بائع أو مشرف)
+PUT http://127.0.0.1:8000/api/products/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 6|BQ4t11jgyh1ywwsQgmLbjzeRY0v2Yf8tllxelt0L047add76
+
+{
+  "name": "لوح طاقة معدل",
+  "price": 5500
+}
+
+### 16. حذف منتج (بائع أو مشرف)
+DELETE http://127.0.0.1:8000/api/products/1
+Accept: application/json
+Authorization: Bearer 6|BQ4t11jgyh1ywwsQgmLbjzeRY0v2Yf8tllxelt0L047add76
+
+### 17. عرض السلة (مشتري)
+GET http://127.0.0.1:8000/api/cart
+Accept: application/json
+Authorization: Bearer 40|EZw41IWYOaFfPdVtlE304uqHW6ARmAAehMKjWlof3fa0b1af
+
+### 18. إضافة منتج للسلة (مشتري)
+POST http://127.0.0.1:8000/api/cart
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 64|oN81Xh1Qn7sMe60drHlBmlmE1JuSi00ZzDv1HziU89b7bc07
+
+{
+  "product_id": 1,
+  "quantity": 2
+}
+
+### 19. تعديل كمية منتج في السلة (مشتري)
+PUT http://127.0.0.1:8000/api/cart/2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 7|Ht6ZLL3qWLPdeg1t573oUNHI2UgpfLLaxyCqS48b8e0bdff9
+
+{
+  "quantity": 30
+}
+
+### 20. حذف منتج من السلة (مشتري)
+DELETE http://127.0.0.1:8000/api/cart/3
+Accept: application/json
+Authorization: Bearer 7|Ht6ZLL3qWLPdeg1t573oUNHI2UgpfLLaxyCqS48b8e0bdff9
+
+### 21. تفريغ السلة (مشتري)
+DELETE http://127.0.0.1:8000/api/cart/clear
+Accept: application/json
+Authorization: Bearer 7|Ht6ZLL3qWLPdeg1t573oUNHI2UgpfLLaxyCqS48b8e0bdff9
+
+### 22. عرض الطلبات (مشتري)
+GET http://127.0.0.1:8000/api/orders
+Accept: application/json
+Authorization: Bearer 138|CuwLhFbrI9pwxDLIl2dcXJGbChf1v9vuWfCMRhf35b65dd62
+
+### 23. إنشاء طلب (مشتري)
+POST http://127.0.0.1:8000/api/orders
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+{
+  "address_id": 1,
+  "payment_method": "credit_card"
+}
+
+### 24. عرض تفاصيل طلب (مشتري)
+GET http://127.0.0.1:8000/api/orders/1
+Accept: application/json
+Authorization: Bearer 7|Ht6ZLL3qWLPdeg1t573oUNHI2UgpfLLaxyCqS48b8e0bdff9
+
+### 25. إنشاء دفعة (مشتري)
+POST http://127.0.0.1:8000/api/payments
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+{
+  "order_id": 1,
+  "amount": 500,
+  "method": "credit_card"
+}
+
+### 26. عرض دفعة (مشتري)
+GET http://127.0.0.1:8000/api/payments/1
+Accept: application/json
+Authorization: Bearer 4|iGXrmmI76aa0dwvSsTXGWus4FKIXgW5xGoPFmsfTb96b41ad
+
+### 27. إضافة مراجعة لمنتج (مشتري)
+POST http://127.0.0.1:8000/api/products/1/reviews
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+{
+  "rating": 5,
+  "comment": "منتج ممتاز"
+}
+
+### 28. عرض مراجعات منتج
+GET http://127.0.0.1:8000/api/products/1/reviews
+Accept: application/json
+Authorization: Bearer BUYER_TOKEN
+
+### 29. عرض الإشعارات
+GET http://127.0.0.1:8000/api/notifications
+Accept: application/json
+Authorization: Bearer 140|fpmJGR37SrAZHrI8lsi7yVzEbuIOsjWGQGP5iAAF5b58372e
+
+### 30. تعليم إشعار كمقروء
+PUT http://127.0.0.1:8000/api/notifications/1/read
+Accept: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+### 31. عرض المحادثات
+GET http://127.0.0.1:8000/api/chats
+Accept: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+### 32. عرض محادثة
+GET http://127.0.0.1:8000/api/chats/1
+Accept: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+### 33. إرسال رسالة في محادثة
+POST http://127.0.0.1:8000/api/chats/1/messages
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|y3LxeBVSqBiq1R5m5z765V3DLvaVv1ZB1ZoOY3cUe785ed81
+
+{
+  "receiver_id": 2,
+  "message": "مرحبًا، كيف حالك؟"
+}
+
+### جلب كل المستخدمين (Admin)
+GET http://127.0.0.1:8000/api/users
+Accept: application/json
+Authorization: Bearer 4|bE9ZbrEswxpmD1SAUie3UVSZv8a8x7Y5v8U7vDvF57769bcd
+
+
+
+### حذف مستخدم (Admin)
+DELETE http://127.0.0.1:8000/api/users/1
+Accept: application/json
+Authorization: Bearer 4|bE9ZbrEswxpmD1SAUie3UVSZv8a8x7Y5v8U7vDvF57769bcd
+
+### تعديل بيانات مستخدم أو تغييره الدور (Admin)
+PUT http://127.0.0.1:8000/api/users/2
+Content-Type: application/json
+Authorization: Bearer 4|bE9ZbrEswxpmD1SAUie3UVSZv8a8x7Y5v8U7vDvF57769bcd
+
+{
+  "role": "seller"
+}
+
+###
+http://127.0.0.1:8000/api/products/search?q=so
+
+
+####
+http://127.0.0.1:8000/api/products/search?q=solar

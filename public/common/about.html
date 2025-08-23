@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>من نحن | متجر الطاقة الذكية</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            /* ===== تنسيقات صفحة من نحن فقط ===== */
+            .about-hero {
+                background: linear-gradient(135deg, #27ae60 0%, #1f8f50 100%);
+                color: #fff;
+                padding: 48px 0;
+                text-align: center;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .about-hero p {
+                opacity: .95;
+            }
+
+            .about-section {
+                margin: 32px auto 48px;
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 24px;
+            }
+
+            @media (max-width: 992px) {
+                .about-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 14px;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+                overflow: hidden;
+            }
+
+            .card-header {
+                padding: 16px 20px;
+                border-bottom: 1px solid #eee;
+                background: #fafafa;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .card-body {
+                padding: 20px;
+                line-height: 1.8;
+                color: #2c3e50;
+            }
+
+            .mission,
+            .vision,
+            .values {
+                margin-bottom: 16px;
+            }
+
+            .values ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                display: grid;
+                gap: 10px;
+            }
+
+            .values li {
+                background: #f9fcfa;
+                border: 1px solid #e6f2ea;
+                border-radius: 10px;
+                padding: 10px 14px;
+            }
+
+            /* صورة رمزية/عنصر بصري */
+            .about-image {
+                height: 240px;
+                border-radius: 12px;
+                background: linear-gradient(135deg, #f7fdf9, #eef8f2);
+                border: 1px solid #e6f2ea;
+                display: grid;
+                place-items: center;
+                color: #2c3e50;
+                font-weight: 600;
+            }
+
+            .about-image img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+                object-fit: cover;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- ===== الهيدر ===== -->
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="شعار المتجر">
+                    <span>متجر الطاقة الذكية</span>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="../visitor/products.html">المنتجات</a>
+                    <a href="about.html" class="active">من نحن</a>
+                    <a href="contact.html">اتصل بنا</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="../common/login.html" class="btn-login">تسجيل الدخول</a>
+                    <a href="../common/register.html" class="btn-register">إنشاء حساب</a>
+                </div>
+
+                <div class="menu-toggle" id="menu-toggle">☰</div>
+            </div>
+        </header>
+
+        <!-- قائمة جانبية للشاشات الصغيرة -->
+        <div class="side-menu" id="side-menu">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <a href="index.html">الرئيسية</a>
+            <a href="../visitor/products.html">المنتجات</a>
+            <a href="about.html" class="active">من نحن</a>
+            <a href="contact.html">اتصل بنا</a>
+            <a href="../common/login.html">تسجيل الدخول</a>
+            <a href="../common/register.html">إنشاء حساب</a>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== بانر ===== -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>من نحن</h1>
+                <p>معًا نحو طاقة ذكية ومستقبل أكثر استدامة</p>
+            </div>
+        </section>
+
+        <!-- ===== المحتوى ===== -->
+        <section class="about-section container">
+            <div class="about-grid">
+                <!-- المحتوى -->
+                <div class="card">
+                    <div class="card-header">قصتنا</div>
+                    <div class="card-body">
+                        <p>متجر الطاقة الذكية تأسس بهدف تقديم حلول كهربائية ومنتجات طاقة بديلة تلبي احتياجات
+                            السوق المحلي والإقليمي. نسعى جاهدين لنشر ثقافة الاستخدام الأمثل للطاقة بأسلوب
+                            عصري ومستدام.</p>
+
+                        <div class="mission">
+                            <h3>رسالتنا</h3>
+                            <p>توفير منتجات عالية الجودة بأسعار مناسبة مع خدمة عملاء متميزة.</p>
+                        </div>
+
+                        <div class="vision">
+                            <h3>رؤيتنا</h3>
+                            <p>أن نكون الوجهة الأولى لكل من يبحث عن حلول طاقة ذكية في المنطقة.</p>
+                        </div>
+
+                        <div class="values">
+                            <h3>قيمنا</h3>
+                            <ul>
+                                <li>المصداقية والشفافية</li>
+                                <li>الجودة والتميز</li>
+                                <li>خدمة العملاء أولوية</li>
+                                <li>الابتكار والتطوير المستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- جانب بصري -->
+                <aside class="sidebar">
+                    <div class="card">
+                        <div class="card-header">من نحن باختصار</div>
+                        <div class="card-body">
+                            <div class="about-image">
+                                <img src="../images/quality.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ===== الفوتر ===== -->
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <div class="footer-section">
+                    <h4>عن المتجر</h4>
+                    <p>متجر متخصص في بيع المنتجات الكهربائية وحلول الطاقة البديلة بجودة عالية وأسعار منافسة.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="../visitor/products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <p>البريد: info@smartenergy.com</p>
+                    <p>الهاتف: +963 999 999 999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 جميع الحقوق محفوظة - متجر الطاقة الذكية</p>
+            </div>
+        </footer>
+
+        <!-- ===== سكربت القائمة الجانبية ===== -->
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const sideMenu = document.getElementById('side-menu');
+            const closeBtn = document.getElementById('close-btn');
+            const overlay = document.getElementById('overlay');
+
+            if (menuToggle)
+            {
+                menuToggle.addEventListener('click', () =>
+                {
+                    sideMenu.classList.add('open');
+                    overlay.classList.add('show');
+                });
+            }
+            if (closeBtn)
+            {
+                closeBtn.addEventListener('click', () =>
+                {
+                    sideMenu.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            }
+            if (overlay)
+            {
+                overlay.addEventListener('click', () =>
+                {
+                    sideMenu.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            }
+        </script>
+
+    </body>
+
+</html>

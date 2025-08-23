@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>متجر الطاقة الذكية | الصفحة الرئيسية</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+
+        <!-- ===== الهيدر ===== -->
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="شعار المتجر">
+                    <span>متجر الطاقة الذكية</span>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="index.html" class="active">الرئيسية</a>
+                    <a href="products.html">المنتجات</a>
+                    <a href="about.html">من نحن</a>
+                    <a href="contact.html">اتصل بنا</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="../common/login.html" class="btn-login">تسجيل الدخول</a>
+                    <a href="../common/register.html" class="btn-register">إنشاء حساب</a>
+                </div>
+
+                <div class="menu-toggle" id="menu-toggle">☰</div>
+            </div>
+        </header>
+
+        <!-- قائمة جانبية للشاشات الصغيرة -->
+        <div class="side-menu" id="side-menu">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <a href="index.html">الرئيسية</a>
+            <a href="products.html">المنتجات</a>
+            <a href="about.html">من نحن</a>
+            <a href="contact.html">اتصل بنا</a>
+            <a href="login.html">تسجيل الدخول</a>
+            <a href="register.html">إنشاء حساب</a>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== بانر رئيسي ===== -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>أفضل المنتجات الكهربائية ومستلزمات الطاقة البديلة</h1>
+                <p>تسوق الآن واحصل على عروض خاصة وشحن مجاني للطلبات الكبيرة</p>
+                <a href="products.html" class="btn-main">تسوق الآن</a>
+            </div>
+        </section>
+
+        <!-- ===== أقسام المنتجات ===== -->
+        <section class="product-categories container">
+            <h2>تسوق حسب الفئة</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="../images/solar.png" alt="Solar Panels">
+                    <h3>Solar Panels</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/battery.png" alt="Batteries">
+                    <h3>Batteries</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/inverters.jpeg" alt="Inverters">
+                    <h3>Inverters</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/charge_controller.jpg" alt="Charge Controllers">
+                    <h3>Charge Controllers</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/mounting.jpg" alt="Mounting Structures">
+                    <h3>Mounting Structures</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/cables.jpg" alt="Cables & Connectors">
+                    <h3>Cables & Connectors</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/lighting.jpg" alt="Lighting Systems">
+                    <h3>Lighting Systems</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/smart_meter.jpg" alt="Smart Meters">
+                    <h3>Smart Meters</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/generator.jpg" alt="Generators">
+                    <h3>Generators</h3>
+                </div>
+                <div class="category-card">
+                    <img src="../images/hybrid.jpg" alt="Hybrid Systems">
+                    <h3>Hybrid Systems</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== الفوتر ===== -->
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <div class="footer-section">
+                    <h4>عن المتجر</h4>
+                    <p>متجر متخصص في بيع المنتجات الكهربائية وحلول الطاقة البديلة بجودة عالية وأسعار منافسة.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <p>البريد: info@smartenergy.com</p>
+                    <p>الهاتف: +963 999 999 999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 جميع الحقوق محفوظة - متجر الطاقة الذكية</p>
+            </div>
+        </footer>
+
+        <!-- ===== سكربت القائمة الجانبية ===== -->
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const sideMenu = document.getElementById('side-menu');
+            const closeBtn = document.getElementById('close-btn');
+            const overlay = document.getElementById('overlay');
+
+            menuToggle.addEventListener('click', () =>
+            {
+                sideMenu.classList.add('open');
+                overlay.classList.add('show');
+            });
+
+            closeBtn.addEventListener('click', () =>
+            {
+                sideMenu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+
+            overlay.addEventListener('click', () =>
+            {
+                sideMenu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+        </script>
+
+    </body>
+
+</html>

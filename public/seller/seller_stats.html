@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>لوحة البائع | الإحصائيات</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            body {
+                font-family: "Cairo", sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                color: #333;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            .main-header {
+                background: #1e5631;
+                color: #fff;
+                padding: 10px 0;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .main-header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: 1.5rem;
+            }
+
+            .nav-menu a {
+                margin: 0 10px;
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+
+            .nav-menu a:hover,
+            .nav-menu a.active {
+                color: #ffb400;
+            }
+
+            .btn-logout {
+                background: #dc3545;
+                color: #fff;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            h2 {
+                margin-top: 0;
+                margin-bottom: 20px;
+                color: #1e5631;
+            }
+
+            /* ===== تحسين تنسيق الرسومات ===== */
+            .charts-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+
+            .chart-card {
+                background: #fff;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .chart-card canvas {
+                width: 100% !important;
+                height: 300px !important;
+            }
+
+            footer.main-footer {
+                background: #1e5631;
+                color: #fff;
+                padding: 40px 20px;
+                font-size: 14px;
+            }
+
+            .footer-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .footer-section {
+                flex: 1 1 250px;
+            }
+
+            .footer-section h4 {
+                margin-bottom: 15px;
+                font-size: 16px;
+                color: #ffb400;
+            }
+
+            .footer-section ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .footer-section ul li {
+                margin-bottom: 8px;
+            }
+
+            .footer-section ul li a {
+                color: #fff;
+                transition: 0.3s;
+            }
+
+            .footer-section ul li a:hover {
+                color: #ffb400;
+            }
+
+            .footer-bottom {
+                text-align: center;
+                margin-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.3);
+                padding-top: 10px;
+                font-size: 13px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="Logo">
+                    <h1>لوحة البائع</h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="seller_dashboard.html">المنتجات</a>
+                    <a href="seller_orders.html">الطلبات</a>
+                    <a href="seller_stats.html" class="active">الإحصائيات</a>
+                    <a href="seller_profile.html">الحساب</a>
+                </nav>
+                <button class="btn-logout" onclick="logout()">تسجيل الخروج</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <h2>الإحصائيات العامة للبائع</h2>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <canvas id="ordersStatusChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <canvas id="monthlySalesChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <canvas id="topProductsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h4>روابط البائع</h4>
+                    <ul>
+                        <li><a href="seller_dashboard.html">المنتجات</a></li>
+                        <li><a href="seller_orders.html">الطلبات</a></li>
+                        <li><a href="seller_stats.html">الإحصائيات</a></li>
+                        <li><a href="seller_profile.html">الحساب</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>الدعم والمساعدة</h4>
+                    <ul>
+                        <li><a href="../contact.html">اتصل بنا</a></li>
+                        <li><a href="../terms.html">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>الموقع</h4>
+                    <p>متجر الطاقة الذكية © 2025</p>
+                    <p>جميع الحقوق محفوظة</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                تم تطوير المنصة بواسطة فريق التقنية
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const API_BASE = "http://127.0.0.1:8000/api";
+            const accessToken = localStorage.getItem('access_token');
+            if (!accessToken) window.location.href = 'login.html';
+
+            function logout()
+            {
+                localStorage.removeItem('access_token');
+                window.location.href = 'login.html';
+            }
+
+            async function fetchSellerStats()
+            {
+                try
+                {
+                    const res = await fetch(`${API_BASE}/seller/orders`, {
+                        headers: { "Authorization": "Bearer " + accessToken }
+                    });
+                    const data = await res.json();
+                    const orders = data.data;
+
+                    // ===== 1. الطلبات حسب الحالة =====
+                    const statusCounts = { pending: 0, completed: 0, canceled: 0 };
+                    orders.forEach(order =>
+                    {
+                        if (statusCounts[order.status] !== undefined)
+                            statusCounts[order.status]++;
+                    });
+
+                    new Chart(document.getElementById('ordersStatusChart'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['معلقة', 'مكتملة', 'ملغاة'],
+                            datasets: [{
+                                data: [statusCounts.pending, statusCounts.completed, statusCounts.canceled],
+                                backgroundColor: ['#ffc107', '#28a745', '#dc3545']
+                            }]
+                        },
+                        options: {
+                            plugins: { title: { display: true, text: 'حالة الطلبات' } }
+                        }
+                    });
+
+                    // ===== 2. المبيعات الشهرية =====
+                    const monthlySales = {};
+                    const now = new Date();
+                    for (let i = 0; i < 6; i++)
+                    {
+                        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                        const key = `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}`;
+                        monthlySales[key] = 0;
+                    }
+
+                    orders.forEach(order =>
+                    {
+                        const date = new Date(order.created_at);
+                        const key = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}`;
+                        if (monthlySales[key] !== undefined)
+                            monthlySales[key] += order.total_price;
+                    });
+
+                    new Chart(document.getElementById('monthlySalesChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(monthlySales).reverse(),
+                            datasets: [{
+                                label: 'إجمالي المبيعات (USD)',
+                                data: Object.values(monthlySales).reverse(),
+                                backgroundColor: '#1e5631'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { title: { display: true, text: 'المبيعات الشهرية لآخر 6 أشهر' } },
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+
+                    // ===== 3. المنتجات الأكثر مبيعاً =====
+                    const productCounts = {};
+                    orders.forEach(order =>
+                    {
+                        order.items.forEach(item =>
+                        {
+                            const name = item.product.name;
+                            if (!productCounts[name]) productCounts[name] = 0;
+                            productCounts[name] += item.quantity;
+                        });
+                    });
+
+                    const topProducts = Object.entries(productCounts)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 5);
+
+                    new Chart(document.getElementById('topProductsChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: topProducts.map(p => p[0]),
+                            datasets: [{
+                                label: 'الكمية المباعة',
+                                data: topProducts.map(p => p[1]),
+                                backgroundColor: '#ffb400'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { title: { display: true, text: 'أكثر 5 منتجات مبيعاً' } },
+                            scales: { y: { beginAtZero: true } }
+                        }
+                    });
+
+                } catch (err)
+                {
+                    console.error(err);
+                }
+            }
+
+            fetchSellerStats();
+        </script>
+    </body>
+
+</html>

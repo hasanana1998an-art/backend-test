@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>المستخدمون | لوحة المشرف</title>
+        <style>
+            :root {
+                --main-color: #003366;
+                --accent-color: #ff9800;
+                --hover-accent: #e68900;
+                --bg-color: #f5f5f5;
+                --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                margin: 0;
+                font-family: var(--font-family);
+                direction: rtl;
+                background-color: var(--bg-color);
+                color: #333;
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 260px;
+                background-color: var(--main-color);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                padding-top: 20px;
+                position: fixed;
+                height: 100vh;
+                top: 0;
+                right: 0;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h2 {
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .sidebar nav a {
+                display: block;
+                padding: 15px 25px;
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                border-right: 4px solid transparent;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
+
+            .sidebar nav a:hover,
+            .sidebar nav a.active {
+                background-color: var(--hover-accent);
+                border-right-color: var(--accent-color);
+            }
+
+            .content {
+                margin-right: 260px;
+                flex-grow: 1;
+                padding: 20px 40px 40px 40px;
+                box-sizing: border-box;
+            }
+
+            header {
+                height: 60px;
+                background-color: var(--main-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 30px;
+                position: fixed;
+                width: calc(100% - 260px);
+                top: 0;
+                right: 260px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                z-index: 10;
+            }
+
+            header .logo {
+                font-weight: bold;
+                font-size: 22px;
+            }
+
+            header nav {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            header nav a {
+                color: white;
+                font-weight: 600;
+                text-decoration: none;
+                padding: 6px 12px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            header nav a:hover {
+                background-color: var(--hover-accent);
+            }
+
+            header .logout-btn {
+                background-color: var(--accent-color);
+                color: white;
+                border: none;
+                padding: 8px 18px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            header .logout-btn:hover {
+                background-color: var(--hover-accent);
+            }
+
+            .content h1 {
+                margin-top: 80px;
+                margin-bottom: 30px;
+                color: var(--main-color);
+                font-size: 28px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            }
+
+            th,
+            td {
+                padding: 12px;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: var(--main-color);
+                color: white;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: #f0f0f0;
+            }
+
+            select {
+                padding: 5px 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            button {
+                padding: 6px 12px;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            button.update-btn {
+                background-color: #28a745;
+                color: white;
+            }
+
+            button.delete-btn {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            button.update-btn:hover {
+                background-color: #218838;
+            }
+
+            button.delete-btn:hover {
+                background-color: #c82333;
+            }
+
+            @media (max-width:768px) {
+                .sidebar {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    flex-direction: row;
+                    padding: 10px 0;
+                    justify-content: space-around;
+                }
+
+                header {
+                    width: 100%;
+                    right: 0;
+                    padding: 0 20px;
+                    position: relative;
+                }
+
+                .content {
+                    margin: 0;
+                    padding: 20px;
+                }
+
+                table th,
+                table td {
+                    font-size: 14px;
+                    padding: 8px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <aside class="sidebar">
+            <h2>الطاقة الذكية</h2>
+            <nav>
+                <a href="admin-dashboard.html">لوحة التحكم</a>
+                <a href="products-list.html">إدارة المنتجات</a>
+                <a href="orders.html">الطلبات</a>
+                <a href="user-list.html" class="active">المستخدمين</a>
+                <a href="categories.html">الفئات</a>
+                <a href="notifications.html">الإشعارات</a>
+                <a href="settings.html">الإعدادات</a>
+                <a href="admin-profile.html">حسابي</a>
+            </nav>
+        </aside>
+
+        <div class="content">
+            <header>
+                <div class="logo">متجر الطاقة الذكية - المشرف</div>
+                <nav>
+                    <a href="admin-dashboard.html">الرئيسية</a>
+                    <a href="admin-profile.html">حسابي</a>
+                </nav>
+                <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+            </header>
+
+            <h1>إدارة المستخدمين</h1>
+
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>الاسم</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الدور</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- سيتم تحميل البيانات هنا عبر JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const API_BASE = "http://127.0.0.1:8000/api";
+            const token = localStorage.getItem("access_token");
+
+            async function fetchUsers()
+            {
+                try
+                {
+                    const res = await fetch(`${API_BASE}/users`, { headers: { "Authorization": `Bearer ${token}` } });
+                    const users = await res.json();
+                    populateTable(users);
+                } catch (e)
+                {
+                    console.error("خطأ في جلب المستخدمين:", e);
+                }
+            }
+
+            function populateTable(users)
+            {
+                const tbody = document.querySelector("#usersTable tbody");
+                tbody.innerHTML = "";
+                users.forEach((user, index) =>
+                {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <select id="roleSelect${user.id}" onchange="updateRole(${user.id})">
+                            <option value="buyer" ${user.role === 'buyer' ? 'selected' : ''}>مشتري</option>
+                            <option value="seller" ${user.role === 'seller' ? 'selected' : ''}>بائع</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>مشرف</option>
+                        </select>
+                    </td>
+                    <td>${new Date(user.created_at).toLocaleDateString('ar-EG')}</td>
+                    <td>
+                        <button class="update-btn" onclick="updateRole(${user.id})">تعديل</button>
+                        <button class="delete-btn" onclick="deleteUser(${user.id})">حذف</button>
+                    </td>
+                `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            async function updateRole(userId)
+            {
+                const role = document.getElementById(`roleSelect${userId}`).value;
+                try
+                {
+                    const res = await fetch(`${API_BASE}/users/${userId}`, {
+                        method: "PUT",
+                        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+                        body: JSON.stringify({ role })
+                    });
+                    if (res.ok) { alert("تم تعديل دور المستخدم بنجاح"); fetchUsers(); }
+                    else alert("فشل تعديل دور المستخدم");
+                } catch (e) { console.error("خطأ تعديل الدور:", e); }
+            }
+
+            async function deleteUser(userId)
+            {
+                if (!confirm("هل أنت متأكد من حذف هذا المستخدم؟")) return;
+                try
+                {
+                    const res = await fetch(`${API_BASE}/users/${userId}`, { method: "DELETE", headers: { "Authorization": `Bearer ${token}` } });
+                    if (res.ok) { alert("تم حذف المستخدم بنجاح"); fetchUsers(); }
+                    else alert("فشل حذف المستخدم");
+                } catch (e) { console.error("خطأ حذف المستخدم:", e); }
+            }
+
+            function logout() { localStorage.removeItem("access_token"); window.location.href = "../common/login.html"; }
+
+            window.onload = fetchUsers;
+        </script>
+    </body>
+
+</html>

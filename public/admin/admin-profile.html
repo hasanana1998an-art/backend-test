@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>حساب المشرف | متجر الطاقة الذكية</title>
+        <style>
+            :root {
+                --main-color: #003366;
+                --accent-color: #ff9800;
+                --hover-accent: #e68900;
+                --bg-color: #f5f5f5;
+                --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                margin: 0;
+                font-family: var(--font-family);
+                direction: rtl;
+                background-color: var(--bg-color);
+                color: #333;
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 260px;
+                background-color: var(--main-color);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                padding-top: 20px;
+                position: fixed;
+                height: 100vh;
+                top: 0;
+                right: 0;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar h2 {
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .sidebar nav a {
+                display: block;
+                padding: 15px 25px;
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                border-right: 4px solid transparent;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
+
+            .sidebar nav a:hover,
+            .sidebar nav a.active {
+                background-color: var(--hover-accent);
+                border-right-color: var(--accent-color);
+            }
+
+            .content {
+                margin-right: 260px;
+                flex-grow: 1;
+                padding: 20px 40px 40px 40px;
+                box-sizing: border-box;
+            }
+
+            header {
+                height: 60px;
+                background-color: var(--main-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 30px;
+                position: fixed;
+                width: calc(100% - 260px);
+                top: 0;
+                right: 260px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                z-index: 10;
+            }
+
+            header .logo {
+                font-weight: bold;
+                font-size: 22px;
+            }
+
+            header nav {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            header nav a {
+                color: white;
+                font-weight: 600;
+                text-decoration: none;
+                padding: 6px 12px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            header nav a:hover {
+                background-color: var(--hover-accent);
+            }
+
+            header .logout-btn {
+                background-color: var(--accent-color);
+                color: white;
+                border: none;
+                padding: 8px 18px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            header .logout-btn:hover {
+                background-color: var(--hover-accent);
+                transform: scale(1.05);
+            }
+
+            h1 {
+                margin-top: 80px;
+                margin-bottom: 30px;
+                color: var(--main-color);
+                font-size: 28px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            form {
+                max-width: 500px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 25px 30px;
+                border-radius: 10px;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            form label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+                color: var(--main-color);
+            }
+
+            form input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+            }
+
+            form button {
+                width: 100%;
+                padding: 12px;
+                background-color: var(--accent-color);
+                color: white;
+                font-weight: bold;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            form button:hover {
+                background-color: var(--hover-accent);
+                transform: scale(1.02);
+            }
+
+            .message {
+                text-align: center;
+                margin-bottom: 20px;
+                font-weight: bold;
+            }
+
+            @media (max-width: 768px) {
+                .sidebar {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    flex-direction: row;
+                    padding: 10px 0;
+                    justify-content: space-around;
+                }
+
+                header {
+                    width: 100%;
+                    right: 0;
+                    padding: 0 20px;
+                    position: relative;
+                }
+
+                .content {
+                    margin: 0;
+                    padding: 20px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <aside class="sidebar">
+            <h2>الطاقة الذكية</h2>
+            <nav>
+                <a href="admin-dashboard.html">لوحة التحكم</a>
+                <a href="products-list.html">إدارة المنتجات</a>
+                <a href="orders.html">الطلبات</a>
+                <a href="user-list.html">المستخدمين</a>
+                <a href="categories.html">الفئات</a>
+                <a href="notifications.html">الإشعارات</a>
+                <a href="settings.html">الإعدادات</a>
+                <a href="admin-profile.html" class="active">حسابي</a>
+            </nav>
+        </aside>
+
+        <div class="content">
+            <header>
+                <div class="logo">متجر الطاقة الذكية - المشرف</div>
+                <nav>
+                    <a href="admin-dashboard.html">الرئيسية</a>
+                    <a href="admin-profile.html" class="active">حسابي</a>
+                </nav>
+                <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+            </header>
+
+            <h1>حساب المشرف</h1>
+
+            <form id="adminForm">
+                <div class="message" id="formMessage"></div>
+
+                <label for="name">الاسم الكامل</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">كلمة المرور الجديدة (اختياري)</label>
+                <input type="password" id="password" name="password">
+
+                <label for="phone">رقم الهاتف</label>
+                <input type="text" id="phone" name="phone">
+
+                <button type="submit">تحديث البيانات</button>
+            </form>
+        </div>
+
+        <script>
+            const API_BASE = "http://127.0.0.1:8000/api";
+
+            async function loadAdminData()
+            {
+                const token = localStorage.getItem("access_token");
+                if (!token)
+                {
+                    alert("غير مسجل الدخول");
+                    return;
+                }
+
+                try
+                {
+                    const res = await fetch(`${API_BASE}/user`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (!res.ok) throw new Error("فشل جلب بيانات المستخدم");
+
+                    const user = await res.json();
+
+                    // ملء الفورم بالبيانات الحالية
+                    document.getElementById("name").value = user.name || "";
+                    document.getElementById("email").value = user.email || "";
+                    document.getElementById("phone").value = user.phone || "";
+                    document.getElementById("formMessage").innerText = "";
+
+                    // حفظ id المستخدم لتحديث البيانات لاحقاً
+                    document.getElementById("adminForm").dataset.userid = user.id;
+
+                } catch (e)
+                {
+                    console.error(e);
+                    document.getElementById("formMessage").innerText = "تعذر تحميل بيانات الحساب";
+                }
+            }
+
+            async function updateAdminData(e)
+            {
+                e.preventDefault();
+                const token = localStorage.getItem("access_token");
+                if (!token)
+                {
+                    alert("غير مسجل الدخول");
+                    return;
+                }
+
+                const form = document.getElementById("adminForm");
+                const userId = form.dataset.userid;
+                const data = {
+                    name: form.name.value,
+                    email: form.email.value,
+                    phone: form.phone.value
+                };
+                if (form.password.value) data.password = form.password.value;
+
+                try
+                {
+                    const res = await fetch(`${API_BASE}/users/${userId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    if (!res.ok) throw new Error("فشل تحديث البيانات");
+
+                    const updatedUser = await res.json();
+                    document.getElementById("formMessage").innerText = "تم تحديث البيانات بنجاح!";
+                    form.password.value = "";
+
+                } catch (e)
+                {
+                    console.error(e);
+                    document.getElementById("formMessage").innerText = "حدث خطأ أثناء التحديث";
+                }
+            }
+
+            function logout()
+            {
+                localStorage.removeItem("access_token");
+                window.location.href = "../common/login.html";
+            }
+
+            window.onload = loadAdminData;
+            document.getElementById("adminForm").addEventListener("submit", updateAdminData);
+        </script>
+    </body>
+
+</html>

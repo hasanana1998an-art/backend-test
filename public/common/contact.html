@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>اتصل بنا | متجر الطاقة الذكية</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            /* ===== تنسيقات صفحة اتصل بنا فقط ===== */
+            .contact-hero {
+                background: linear-gradient(135deg, #27ae60 0%, #1f8f50 100%);
+                color: #fff;
+                padding: 48px 0;
+                text-align: center;
+            }
+
+            .contact-hero h1 {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .contact-hero p {
+                opacity: .95;
+            }
+
+            .contact-section {
+                margin: 32px auto 48px;
+            }
+
+            .contact-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 24px;
+            }
+
+            @media (max-width: 992px) {
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 14px;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+                overflow: hidden;
+            }
+
+            .card-header {
+                padding: 16px 20px;
+                border-bottom: 1px solid #eee;
+                background: #fafafa;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            /* نموذج التواصل */
+            .contact-form .field {
+                margin-bottom: 14px;
+            }
+
+            .contact-form label {
+                display: block;
+                margin-bottom: 6px;
+                color: #2c3e50;
+                font-size: .95rem;
+            }
+
+            .contact-form input,
+            .contact-form textarea,
+            .contact-form select {
+                width: 100%;
+                padding: 12px 14px;
+                border: 1px solid #dfe6e9;
+                border-radius: 10px;
+                outline: none;
+                background: #fff;
+                transition: border-color .2s ease, box-shadow .2s ease;
+                font-family: inherit;
+            }
+
+            .contact-form textarea {
+                resize: vertical;
+                min-height: 140px;
+            }
+
+            .contact-form input:focus,
+            .contact-form textarea:focus,
+            .contact-form select:focus {
+                border-color: #27ae60;
+                box-shadow: 0 0 0 3px rgba(39, 174, 96, .12);
+            }
+
+            .contact-actions {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-start;
+                margin-top: 8px;
+            }
+
+            .btn-main {
+                display: inline-block;
+                padding: 12px 18px;
+                background: #27ae60;
+                color: #fff;
+                border: 0;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 700;
+                transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+            }
+
+            .btn-main:hover {
+                background: #229a56;
+                box-shadow: 0 8px 18px rgba(39, 174, 96, .25);
+                transform: translateY(-1px);
+            }
+
+            .btn-ghost {
+                padding: 12px 16px;
+                background: #f3f6f6;
+                border: 1px solid #e5e9ea;
+                color: #2c3e50;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background .2s ease;
+            }
+
+            .btn-ghost:hover {
+                background: #eef2f3;
+            }
+
+            /* معلومات المتجر */
+            .info-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: grid;
+                gap: 10px;
+            }
+
+            .info-item {
+                padding: 12px 14px;
+                border: 1px solid #eef1f2;
+                border-radius: 10px;
+                display: grid;
+                gap: 4px;
+            }
+
+            .info-item strong {
+                color: #2c3e50;
+            }
+
+            .work-hours {
+                margin-top: 12px;
+                padding: 12px 14px;
+                background: #f9fcfa;
+                border: 1px dashed #cfe9da;
+                border-radius: 10px;
+                color: #2c3e50;
+                font-size: .95rem;
+            }
+
+            /* خريطة/عنصر بصري */
+            .map-card .map-placeholder {
+                height: 240px;
+                border-radius: 12px;
+                background:
+                    radial-gradient(circle at 20% 20%, rgba(39, 174, 96, .25), transparent 35%),
+                    radial-gradient(circle at 80% 30%, rgba(39, 174, 96, .18), transparent 40%),
+                    linear-gradient(135deg, #f7fdf9, #eef8f2);
+                border: 1px solid #e6f2ea;
+                display: grid;
+                place-items: center;
+                color: #2c3e50;
+                font-weight: 600;
+            }
+
+            /* تنبيه الحالة */
+            .form-status {
+                display: none;
+                margin-top: 10px;
+                padding: 12px 14px;
+                background: #f0fff5;
+                border: 1px solid #c7f0d7;
+                color: #1f7a45;
+                border-radius: 10px;
+                font-size: .95rem;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- ===== الهيدر المطابق للصفحات الأخرى ===== -->
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="شعار المتجر">
+                    <span>متجر الطاقة الذكية</span>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="../visitor/products.html">المنتجات</a>
+                    <a href="about.html">من نحن</a>
+                    <a href="contact.html" class="active">اتصل بنا</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="../common/login.html" class="btn-login">تسجيل الدخول</a>
+                    <a href="../common/register.html" class="btn-register">إنشاء حساب</a>
+                </div>
+
+                <div class="menu-toggle" id="menu-toggle">☰</div>
+            </div>
+        </header>
+
+        <!-- قائمة جانبية للشاشات الصغيرة -->
+        <div class="side-menu" id="side-menu">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <a href="index.html">الرئيسية</a>
+            <a href="../visitor/products.html">المنتجات</a>
+            <a href="about.html">من نحن</a>
+            <a href="contact.html" class="active">اتصل بنا</a>
+            <a href="../common/login.html">تسجيل الدخول</a>
+            <a href="../common/register.html">إنشاء حساب</a>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== بانر بسيط ===== -->
+        <section class="contact-hero">
+            <div class="container">
+                <h1>اتصل بنا</h1>
+                <p>يسعدنا خدمتك والإجابة على جميع استفساراتك</p>
+            </div>
+        </section>
+
+        <!-- ===== المحتوى ===== -->
+        <section class="contact-section container">
+            <div class="contact-grid">
+                <!-- النموذج -->
+                <div class="card">
+                    <div class="card-header">أرسل رسالة</div>
+                    <div class="card-body">
+                        <form class="contact-form" action="#" method="post" id="contactForm" novalidate>
+                            <div class="field">
+                                <label for="name">الاسم الكامل</label>
+                                <input type="text" id="name" name="name" required placeholder="اكتب اسمك هنا">
+                            </div>
+
+                            <div class="field">
+                                <label for="email">البريد الإلكتروني</label>
+                                <input type="email" id="email" name="email" required placeholder="name@example.com">
+                            </div>
+
+                            <div class="field">
+                                <label for="phone">رقم الهاتف (اختياري)</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+963 9xx xxx xxx"
+                                    pattern="^[0-9+\-\s()]{6,}$">
+                            </div>
+
+                            <div class="field">
+                                <label for="subject">الموضوع</label>
+                                <input type="text" id="subject" name="subject" placeholder="موضوع الرسالة">
+                            </div>
+
+                            <div class="field">
+                                <label for="message">رسالتك</label>
+                                <textarea id="message" name="message" rows="6" required
+                                    placeholder="اكتب تفاصيل رسالتك..."></textarea>
+                            </div>
+
+                            <div class="contact-actions">
+                                <button type="submit" class="btn-main">إرسال الرسالة</button>
+                                <button type="reset" class="btn-ghost">تفريغ الحقول</button>
+                            </div>
+
+                            <div class="form-status" id="formStatus">تم استلام رسالتك بنجاح. سنعاود التواصل قريبًا.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- الشريط الجانبي -->
+                <aside class="sidebar">
+                    <div class="card">
+                        <div class="card-header">معلومات الاتصال</div>
+                        <div class="card-body">
+                            <ul class="info-list">
+                                <li class="info-item">
+                                    <strong>العنوان:</strong>
+                                    <span>دمشق - سوريا</span>
+                                </li>
+                                <li class="info-item">
+                                    <strong>الهاتف:</strong>
+                                    <span>0999999999</span>
+                                </li>
+                                <li class="info-item">
+                                    <strong>البريد الإلكتروني:</strong>
+                                    <span>info@smartenergy.com</span>
+                                </li>
+                            </ul>
+
+                            <div class="work-hours">
+                                <strong>ساعات العمل:</strong><br>
+                                يوميًا من 9:00 صباحًا حتى 6:00 مساءً (ما عدا الجمعة)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card map-card" style="margin-top:16px;">
+                        <div class="card-header">موقعنا التقريبي</div>
+                        <div class="card-body">
+                            <div class="map-placeholder">عرض الخريطة/الموقع (عنصر بصري تجريبي)</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ===== الفوتر ===== -->
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <div class="footer-section">
+                    <h4>عن المتجر</h4>
+                    <p>متجر متخصص في بيع المنتجات الكهربائية وحلول الطاقة البديلة بجودة عالية وأسعار منافسة.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="../visitor/products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <p>البريد: info@smartenergy.com</p>
+                    <p>الهاتف: +963 999 999 999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 جميع الحقوق محفوظة - متجر الطاقة الذكية</p>
+            </div>
+        </footer>
+
+        <!-- ===== سكربت القائمة الجانبية + إشعار وهمي للنموذج ===== -->
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const sideMenu = document.getElementById('side-menu');
+            const closeBtn = document.getElementById('close-btn');
+            const overlay = document.getElementById('overlay');
+
+            if (menuToggle)
+            {
+                menuToggle.addEventListener('click', () =>
+                {
+                    sideMenu.classList.add('open');
+                    overlay.classList.add('show');
+                });
+            }
+            if (closeBtn)
+            {
+                closeBtn.addEventListener('click', () =>
+                {
+                    sideMenu.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            }
+            if (overlay)
+            {
+                overlay.addEventListener('click', () =>
+                {
+                    sideMenu.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            }
+
+            // عرض رسالة نجاح بشكل تجريبي بدون باك-إند
+            const form = document.getElementById('contactForm');
+            const statusEl = document.getElementById('formStatus');
+            if (form && statusEl)
+            {
+                form.addEventListener('submit', function (e)
+                {
+                    e.preventDefault(); // احذف هذا عند ربط الـ API
+                    statusEl.style.display = 'block';
+                    form.reset();
+                    window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
+                });
+            }
+        </script>
+
+    </body>
+
+</html>

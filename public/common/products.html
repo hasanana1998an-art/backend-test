@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>المنتجات | متجر الطاقة الذكية</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            /* ===== شبكة المنتجات ===== */
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 24px;
+            }
+
+            .product-card {
+                background: #fff;
+                border-radius: 14px;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition: transform .2s ease, box-shadow .2s ease;
+            }
+
+            .product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, .12);
+            }
+
+            .product-image {
+                width: 100%;
+                height: 180px;
+                overflow: hidden;
+            }
+
+            .product-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .product-body {
+                padding: 16px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .product-body h3 {
+                margin: 0 0 8px;
+                font-size: 1.1rem;
+                color: #2c3e50;
+            }
+
+            .product-body p {
+                flex-grow: 1;
+                margin: 0 0 12px;
+                font-size: .95rem;
+                color: #555;
+            }
+
+            .product-actions {
+                display: flex;
+                gap: 10px;
+            }
+
+            .btn-main {
+                display: inline-block;
+                padding: 10px 14px;
+                background: #27ae60;
+                color: #fff;
+                border: 0;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 700;
+                text-align: center;
+                transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+                flex: 1;
+            }
+
+            .btn-main:hover {
+                background: #229a56;
+                box-shadow: 0 8px 18px rgba(39, 174, 96, .25);
+                transform: translateY(-1px);
+            }
+
+            .btn-ghost {
+                padding: 10px 14px;
+                background: #f3f6f6;
+                border: 1px solid #e5e9ea;
+                color: #2c3e50;
+                border-radius: 10px;
+                cursor: pointer;
+                text-align: center;
+                flex: 1;
+            }
+
+            .btn-ghost:hover {
+                background: #eef2f3;
+            }
+
+            /* ===== شريط البحث ===== */
+            .search-box {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .search-box input {
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                width: 250px;
+            }
+
+            .search-box button {
+                padding: 10px 16px;
+                border-radius: 8px;
+                border: none;
+                background: #27ae60;
+                color: white;
+                cursor: pointer;
+            }
+
+            .search-box button:hover {
+                background: #229a56;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- ===== الهيدر ===== -->
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="شعار المتجر">
+                    <span>متجر الطاقة الذكية</span>
+                </div>
+
+                <nav class="nav-menu">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="products.html" class="active">المنتجات</a>
+                    <a href="about.html">من نحن</a>
+                    <a href="contact.html">اتصل بنا</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="../common/login.html" class="btn-login">تسجيل الدخول</a>
+                    <a href="../common/register.html" class="btn-register">إنشاء حساب</a>
+                </div>
+
+                <div class="menu-toggle" id="menu-toggle">☰</div>
+            </div>
+        </header>
+
+        <!-- بانر المنتجات -->
+        <section class="products-hero">
+            <div class="container">
+                <h1>منتجاتنا</h1>
+                <p>أفضل المنتجات الكهربائية وحلول الطاقة البديلة بأسعار تنافسية</p>
+
+                <!-- شريط البحث -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+                    <button onclick="searchProducts()">بحث</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- شبكة المنتجات -->
+        <section class="products-section container">
+            <div class="products-grid" id="productsGrid">
+                <!-- المنتجات سيتم جلبها من API هنا -->
+            </div>
+        </section>
+
+        <!-- ===== الفوتر ===== -->
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <div class="footer-section">
+                    <h4>عن المتجر</h4>
+                    <p>متجر متخصص في بيع المنتجات الكهربائية وحلول الطاقة البديلة بجودة عالية وأسعار منافسة.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="products.html">المنتجات</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <p>البريد: info@smartenergy.com</p>
+                    <p>الهاتف: +963 999 999 999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 جميع الحقوق محفوظة - متجر الطاقة الذكية</p>
+            </div>
+        </footer>
+
+        <!-- ===== جلب المنتجات من API ===== -->
+        <script>
+            const productsGrid = document.getElementById('productsGrid');
+
+            const apiURL = 'http://127.0.0.1:8000/api/products';
+
+            const isLoggedIn = false; // ضع true إذا كان المستخدم مسجّل دخول
+
+            // جلب جميع المنتجات
+            async function fetchProducts()
+            {
+                try
+                {
+                    const response = await fetch(apiURL);
+                    if (!response.ok) throw new Error('خطأ في جلب البيانات');
+                    const products = await response.json();
+                    renderProducts(products);
+                } catch (error)
+                {
+                    productsGrid.innerHTML = `<p>فشل في تحميل المنتجات. حاول مرة أخرى لاحقًا.</p>`;
+                    console.error(error);
+                }
+            }
+
+            // البحث عن منتجات
+            async function searchProducts()
+            {
+                const query = document.getElementById('searchInput').value;
+                if (!query)
+                {
+                    fetchProducts();
+                    return;
+                }
+                try
+                {
+                    const response = await fetch(`${apiURL}/search?query=${query}`);
+                    if (!response.ok) throw new Error('خطأ في البحث');
+                    const products = await response.json();
+                    renderProducts(products);
+                } catch (error)
+                {
+                    productsGrid.innerHTML = `<p>فشل في البحث. حاول مرة أخرى.</p>`;
+                    console.error(error);
+                }
+            }
+
+            // عرض المنتجات
+            function renderProducts(products)
+            {
+                productsGrid.innerHTML = '';
+                if (!products || products.length === 0)
+                {
+                    productsGrid.innerHTML = '<p>لا توجد منتجات مطابقة.</p>';
+                    return;
+                }
+
+                products.forEach(product =>
+                {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+
+                    const actionButton = isLoggedIn
+                        ? `<button class="btn-main" onclick="addToCart(${product.id})">إضافة إلى السلة</button>`
+                        : `<button class="btn-main" onclick="goToRegister()">سجل دخول لتتمكن من الإضافة</button>`;
+
+                    card.innerHTML = `
+          <div class="product-image">
+              <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-body">
+              <h3>${product.name}</h3>
+              <p>${product.description}</p>
+              <div class="product-actions">
+                  ${actionButton}
+                  <button class="btn-ghost" onclick="viewDetails(${product.id})">عرض التفاصيل</button>
+              </div>
+          </div>
+        `;
+
+                    productsGrid.appendChild(card);
+                });
+            }
+
+            function addToCart(id)
+            {
+                alert('تمت إضافة المنتج ' + id + ' إلى السلة (تجريبي)');
+            }
+
+            function goToRegister()
+            {
+                window.location.href = '../common/register.html';
+            }
+
+            function viewDetails(id)
+            {
+                window.location.href = `product-details.html?id=${id}`;
+            }
+
+            // تشغيل أول مرة
+            fetchProducts();
+        </script>
+    </body>
+
+</html>

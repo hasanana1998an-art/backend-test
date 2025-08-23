@@ -1,0 +1,33 @@
+/* للأجهزة الصغيرة */
+@media (max-width: 768px) {
+    header nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+}
+
+/* للهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px 16px;
+    }
+}
