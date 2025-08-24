@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>لوحة البائع | الحساب</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            body {
+                font-family: "Cairo", sans-serif;
+                background: #f5f5f5;
+                margin: 0;
+                color: #333;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            .main-header {
+                background: #1e5631;
+                color: #fff;
+                padding: 10px 0;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .main-header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .main-header h1 {
+                margin: 0;
+                font-size: 1.5rem;
+            }
+
+            .nav-menu a {
+                margin: 0 10px;
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+                transition: .3s;
+            }
+
+            .nav-menu a:hover,
+            .nav-menu a.active {
+                color: #ffb400;
+            }
+
+            .btn-logout {
+                background: #dc3545;
+                color: #fff;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .notice {
+                background: #fff3cd;
+                color: #7a5d00;
+                border: 1px solid #ffe69c;
+                padding: 12px 14px;
+                border-radius: 8px;
+                margin-top: 16px;
+                display: none;
+            }
+
+            .error {
+                background: #fde2e1;
+                color: #7f1d1d;
+                border: 1px solid #f8b4b4;
+            }
+
+            .profile-card {
+                background: #fff;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+                margin-top: 20px;
+            }
+
+            .profile-card h2 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-size: 1.3rem;
+            }
+
+            .profile-card label {
+                display: block;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+            .profile-card input,
+            .profile-card textarea {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+            }
+
+            .btn-save {
+                background: #28a745;
+                color: #fff;
+                padding: 8px 14px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                margin-top: 15px;
+            }
+
+            @media (max-width: 768px) {
+                .nav-menu {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <div class="logo" style="display:flex;gap:10px;align-items:center">
+                    <img src="../images/logo.png" alt="Logo" style="height:36px" />
+                    <h1>لوحة البائع</h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="seller_dashboard.html">المنتجات</a>
+                    <a href="seller_orders.html">الطلبات</a>
+                    <a href="seller_stats.html">الإحصائيات</a>
+                    <a href="seller_profile.html" class="active">الحساب</a>
+                </nav>
+                <button class="btn-logout" onclick="logout()">تسجيل الخروج</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div id="notice" class="notice"></div>
+            <div id="errorBox" class="notice error"></div>
+
+            <div class="profile-card">
+                <h2>بيانات الحساب</h2>
+                <label>الاسم الكامل</label>
+                <input type="text" id="fullName" placeholder="الاسم الكامل" />
+
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="البريد الإلكتروني" />
+
+                <label>رقم الهاتف</label>
+                <input type="text" id="phone" placeholder="رقم الهاتف" />
+
+                <label>كلمة المرور الجديدة (اختياري)</label>
+                <input type="password" id="password" placeholder="اتركها فارغة إذا لم تتغير" />
+
+                <label>تأكيد كلمة المرور</label>
+                <input type="password" id="passwordConfirm" placeholder="تأكيد كلمة المرور" />
+
+                <button class="btn-save" id="saveProfileBtn">حفظ التغييرات</button>
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <div class="footer-section">
+                    <h4>روابط البائع</h4>
+                    <ul>
+                        <li><a href="seller_dashboard.html">المنتجات</a></li>
+                        <li><a href="seller_orders.html">الطلبات</a></li>
+                        <li><a href="seller_stats.html">الإحصائيات</a></li>
+                        <li><a href="seller_profile.html">الحساب</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>الدعم والمساعدة</h4>
+                    <ul>
+                        <li><a href="../common/about.html">من نحن</a></li>
+                        <li><a href="../common/contact.html">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>الموقع</h4>
+                    <p>متجر الطاقة الذكية © 2025</p>
+                    <p>جميع الحقوق محفوظة</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        const API_BASE = "https://backend-test-production-196e.up.railway.app/api";
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) window.location.href = '../common/login.html';
+        const authHeaders = { "Authorization": "Bearer " + accessToken, "Accept": "application/json" };
+
+        const fullName = document.getElementById('fullName');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone');
+        const password = document.getElementById('password');
+        const passwordConfirm = document.getElementById('passwordConfirm');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const notice = document.getElementById('notice');
+        const errorBox = document.getElementById('errorBox');
+
+        function setNotice(msg) { if (!msg) { notice.style.display = "none"; notice.textContent = ""; return; } notice.textContent = msg; notice.style.display = "block"; }
+        function setError(msg) { if (!msg) { errorBox.style.display = "none"; errorBox.textContent = ""; return; } errorBox.textContent = msg; errorBox.style.display = "block"; }
+
+        async function fetchProfile() {
+            try {
+                const res = await fetch(`${API_BASE}/user`, { headers: authHeaders });
+                if (!res.ok) throw new Error("فشل جلب بيانات الحساب");
+                const user = await res.json();
+                fullName.value = user.name || "";
+                email.value = user.email || "";
+                phone.value = user.phone || "";
+            } catch (e) {
+                setError(e.message);
+            }
+        }
+
+        async function saveProfile() {
+            setError(""); setNotice("");
+            if (password.value && password.value !== passwordConfirm.value) {
+                setError("كلمة المرور وتأكيدها غير متطابقين");
+                return;
+            }
+
+            const payload = {
+                name: fullName.value,
+                email: email.value,
+                phone: phone.value,
+                ...(password.value ? { password: password.value, password_confirmation: passwordConfirm.value } : {})
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/user`, {
+                    method: 'PUT',
+                    headers: { ...authHeaders, "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) {
+                    const j = await res.json();
+                    throw new Error(j.message || "فشل تحديث الحساب");
+                }
+                setNotice("تم تحديث بيانات الحساب بنجاح");
+                password.value = "";
+                passwordConfirm.value = "";
+            } catch (e) {
+                setError(e.message);
+            }
+        }
+
+        saveProfileBtn.addEventListener('click', saveProfile);
+        window.logout = () => { localStorage.removeItem('access_token'); window.location.href = '../common/login.html'; };
+
+        // تحميل البيانات عند البداية
+        fetchProfile();
+        </script>
+    </body>
+
+</html>

@@ -94,12 +94,48 @@
                 background: #f8d7da;
                 color: #721c24;
             }
+
+            /* --- أيقونة السلة --- */
+            #cart-icon {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            #cart-count-badge {
+                position: absolute;
+                top: -6px;
+                right: -10px;
+                background: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+                font-weight: bold;
+                display: none;
+            }
+
+            .badge {
+                background: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+                margin-left: 5px;
+                display: none;
+            }
+
+            @media (max-width: 768px) {
+                #cart-icon {
+                    display: none;
+                }
+            }
         </style>
     </head>
 
     <body>
 
-        <!-- ===== الهيدر ===== -->
+        <!-- ===== الهيدر الموحد ===== -->
         <header class="main-header">
             <div class="container">
                 <div class="logo">
@@ -112,11 +148,16 @@
                     <a href="products.html">المنتجات</a>
                     <a href="profile.html">الملف الشخصي</a>
                     <a href="orders.html" class="active">طلباتي</a>
-                    <a href="cart.html">السلة</a>
                 </nav>
 
-                <div class="auth-buttons">
-                    <span id="user-name" style="margin-right:10px; font-weight:bold;"></span>
+                <div class="header-actions">
+                    <span id="user-name" style="font-weight:bold;"></span>
+
+                    <div id="cart-icon">
+                        <i class="fa-solid fa-cart-shopping" style="font-size:22px; color:#0d6efd;"></i>
+                        <span id="cart-count-badge"></span>
+                    </div>
+
                     <button id="logout-btn" class="btn-logout">تسجيل الخروج</button>
                 </div>
 
@@ -131,7 +172,7 @@
             <a href="products.html">المنتجات</a>
             <a href="profile.html">الملف الشخصي</a>
             <a href="orders.html" class="active">طلباتي</a>
-            <a href="cart.html">السلة</a>
+            <a href="cart.html">السلة <span id="side-cart-count-badge" class="badge"></span></a>
             <a href="#" id="side-logout-btn">تسجيل الخروج</a>
         </div>
         <div class="overlay" id="overlay"></div>
@@ -187,28 +228,17 @@
         </footer>
 
         <script>
+            // ===== القائمة الجانبية =====
             const menuToggle = document.getElementById('menu-toggle');
             const sideMenu = document.getElementById('side-menu');
             const closeBtn = document.getElementById('close-btn');
             const overlay = document.getElementById('overlay');
 
-            menuToggle.addEventListener('click', () =>
-            {
-                sideMenu.classList.add('open');
-                overlay.classList.add('show');
-            });
-            closeBtn.addEventListener('click', () =>
-            {
-                sideMenu.classList.remove('open');
-                overlay.classList.remove('show');
-            });
-            overlay.addEventListener('click', () =>
-            {
-                sideMenu.classList.remove('open');
-                overlay.classList.remove('show');
-            });
+            menuToggle.addEventListener('click', () => { sideMenu.classList.add('open'); overlay.classList.add('show'); });
+            closeBtn.addEventListener('click', () => { sideMenu.classList.remove('open'); overlay.classList.remove('show'); });
+            overlay.addEventListener('click', () => { sideMenu.classList.remove('open'); overlay.classList.remove('show'); });
 
-            // عرض اسم المستخدم وتسجيل الخروج
+            // ===== عرض اسم المستخدم وتسجيل الخروج =====
             const userNameSpan = document.getElementById('user-name');
             const logoutBtn = document.getElementById('logout-btn');
             const sideLogoutBtn = document.getElementById('side-logout-btn');
@@ -232,11 +262,51 @@
                 localStorage.removeItem('user');
                 window.location.href = "../common/login.html";
             }
-
             logoutBtn.addEventListener('click', logout);
             sideLogoutBtn.addEventListener('click', logout);
 
-            const API_BASE = "http://127.0.0.1:8000/api";
+            // ===== أيقونة السلة وعدادها =====
+            const cartIcon = document.getElementById('cart-icon');
+            const cartCountBadge = document.getElementById('cart-count-badge');
+            const sideCartCountBadge = document.getElementById('side-cart-count-badge');
+
+            cartIcon?.addEventListener('click', () => { window.location.href = "cart.html"; });
+
+            function updateCartCount(count)
+            {
+                if (count > 0)
+                {
+                    cartCountBadge.style.display = 'inline-block';
+                    cartCountBadge.textContent = count;
+                    sideCartCountBadge.style.display = 'inline-block';
+                    sideCartCountBadge.textContent = count;
+                } else
+                {
+                    cartCountBadge.style.display = 'none';
+                    sideCartCountBadge.style.display = 'none';
+                }
+            }
+
+            async function fetchCartCount()
+            {
+                if (!token) return;
+                try
+                {
+                    const res = await fetch("https://backend-test-production-196e.up.railway.app/api/cart", {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if (res.ok)
+                    {
+                        const json = await res.json();
+                        const items = Array.isArray(json) ? json : json.data ?? [];
+                        updateCartCount(items.length);
+                    }
+                } catch (e) { console.warn('تعذر تحديث عداد السلة'); }
+            }
+            fetchCartCount();
+
+            // ===== عرض الطلبات =====
+            const API_BASE = "https://backend-test-production-196e.up.railway.app/api";
             const ordersTableBody = document.querySelector("#ordersTable tbody");
             const msgBox = document.getElementById('msg');
 
@@ -246,17 +316,6 @@
                 msgBox.className = `message ${type}`;
                 msgBox.style.display = 'block';
                 if (timeout) setTimeout(() => msgBox.style.display = 'none', timeout);
-            }
-
-            function handleUnauthorized(status)
-            {
-                if (status === 401 || status === 419)
-                {
-                    showMsg('انتهت الجلسة، سيتم تحويلك لتسجيل الدخول', 'error', 1500);
-                    setTimeout(() => window.location.href = "../common/login.html", 1200);
-                    return true;
-                }
-                return false;
             }
 
             function renderOrders(orders)
@@ -271,33 +330,24 @@
                 {
                     const tr = document.createElement('tr');
                     const date = new Date(order.created_at).toLocaleString();
-
-                    let total = order.total ?? (order.items ? order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0) : 0);
-
+                    const total = order.total ?? (order.items ? order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0) : 0);
                     const status = (order.status || 'Pending').toLowerCase();
                     let statusClass = '';
                     switch (status)
                     {
                         case 'pending':
-                        case 'pendding':
-                            statusClass = 'Pending'; break;
-                        case 'completed':
-                            statusClass = 'Completed'; break;
-                        case 'cancelled':
-                            statusClass = 'Cancelled'; break;
-                        default:
-                            statusClass = 'Pending';
+                        case 'pendding': statusClass = 'Pending'; break;
+                        case 'completed': statusClass = 'Completed'; break;
+                        case 'cancelled': statusClass = 'Cancelled'; break;
+                        default: statusClass = 'Pending';
                     }
-
                     tr.innerHTML = `
-                <td>${order.id}</td>
-                <td>${date}</td>
-                <td><span class="status ${statusClass}">${order.status}</span></td>
-                <td>${total.toFixed(2)} $</td>
-                <td>
-                    <button onclick="showDetails(${order.id})"><i class="fa-solid fa-eye"></i> عرض</button>
-                </td>
-            `;
+                    <td>${order.id}</td>
+                    <td>${date}</td>
+                    <td><span class="status ${statusClass}">${order.status}</span></td>
+                    <td>${total.toFixed(2)} $</td>
+                    <td><button onclick="showDetails(${order.id})"><i class="fa-solid fa-eye"></i> عرض</button></td>
+                `;
                     ordersTableBody.appendChild(tr);
                 });
             }
@@ -306,18 +356,15 @@
             {
                 const order = window.ordersData.find(o => o.id === orderId);
                 if (!order) return;
-
                 let details = "تفاصيل الطلب:\n\n";
                 order.items.forEach(item =>
                 {
                     details += `• ${item.product?.name ?? item.name} x ${item.quantity} = ${(item.price * item.quantity).toFixed(2)} $\n`;
                 });
-
-                let total = order.total ?? (order.items ? order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0) : 0);
-                details += `\nالإجمالي: ${total.toFixed(2)} $`
-                    + `\nالعنوان: ${order.address ?? order.shipping_address ?? "غير محدد"}`
-                    + `\nطريقة الدفع: ${order.paymentMethod ?? order.payment_method ?? "غير محددة"}`;
-
+                const total = order.total ?? (order.items ? order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0) : 0);
+                details += `\nالإجمالي: ${total.toFixed(2)} $` +
+                    `\nالعنوان: ${order.address ?? order.shipping_address ?? "غير محدد"}` +
+                    `\nطريقة الدفع: ${order.paymentMethod ?? order.payment_method ?? "غير محددة"}`;
                 alert(details);
             }
 
@@ -326,9 +373,7 @@
             {
                 try
                 {
-                    const res = await fetch(`${API_BASE}/orders`, {
-                        headers: { "Authorization": `Bearer ${token}` }
-                    });
+                    const res = await fetch(`${API_BASE}/orders`, { headers: { "Authorization": `Bearer ${token}` } });
                     const data = await res.json();
                     window.ordersData = data.data || data;
                     renderOrders(window.ordersData);
@@ -338,7 +383,6 @@
                     ordersTableBody.innerHTML = '<tr><td colspan="5">لا توجد طلبات حالياً</td></tr>';
                 }
             }
-
             init();
         </script>
 

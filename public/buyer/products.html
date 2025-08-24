@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="../css/reset.css">
         <link rel="stylesheet" href="../css/responsive.css">
         <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
         <style>
-            /* === شبكة المنتجات بنفس هوية الموقع === */
+            /* شبكة المنتجات */
             .products-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -120,12 +121,54 @@
             .btn-logout:hover {
                 background-color: #e60000;
             }
+
+            /* --- هيدر السلة الموحد --- */
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            #cart-icon {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            #cart-count-badge {
+                position: absolute;
+                top: -6px;
+                right: -10px;
+                background: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+                font-weight: bold;
+                display: none;
+            }
+
+            .badge {
+                background: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+                margin-left: 5px;
+                display: none;
+            }
+
+            @media (max-width: 768px) {
+                #cart-icon {
+                    display: none;
+                }
+            }
         </style>
     </head>
 
     <body>
 
-        <!-- ===== الهيدر (مطابق لهوية الموقع) ===== -->
+        <!-- الهيدر الموحد -->
         <header class="main-header">
             <div class="container">
                 <div class="logo">
@@ -138,24 +181,47 @@
                     <a href="products.html" class="active">المنتجات</a>
                     <a href="profile.html">الملف الشخصي</a>
                     <a href="orders.html">طلباتي</a>
-                    <a href="cart.html">السلة</a>
                 </nav>
 
-                <div class="auth-buttons">
-                    <span id="user-name" style="margin-right:10px;font-weight:bold;"></span>
+                <div class="header-actions">
+                    <span id="user-name" style="font-weight:bold;"></span>
+
+                    <div id="cart-icon">
+                        <i class="fa-solid fa-cart-shopping" style="font-size:22px; color:#0d6efd;"></i>
+                        <span id="cart-count-badge"></span>
+                    </div>
+
                     <button id="logout-btn" class="btn-logout">تسجيل الخروج</button>
                 </div>
+
+                <div class="menu-toggle" id="menu-toggle">☰</div>
             </div>
         </header>
 
-        <!-- ===== قائمة المنتجات ===== -->
+        <!-- القائمة الجانبية -->
+        <div class="side-menu" id="side-menu">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <a href="index.html">الرئيسية</a>
+            <a href="products.html">المنتجات</a>
+            <a href="profile.html">الملف الشخصي</a>
+            <a href="orders.html">طلباتي</a>
+            <a href="cart.html">السلة <span id="side-cart-count-badge" class="badge"></span></a>
+            <a href="#" id="side-logout-btn">تسجيل الخروج</a>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== قائمة البحث والمنتجات ===== -->
         <section>
+            <div style="text-align:center; margin:20px 0;">
+                <input type="text" id="searchInput" placeholder="ابحث عن منتج..."
+                    style="padding:10px 15px; width:90%; max-width:400px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
+            </div>
             <div id="productsContainer" class="products-grid"></div>
         </section>
 
         <div id="notify"></div>
 
-        <!-- ===== الفوتر (موحد) ===== -->
+        <!-- ===== الفوتر ===== -->
         <footer class="main-footer">
             <div class="container footer-container">
                 <div class="footer-section">
@@ -167,8 +233,8 @@
                     <ul>
                         <li><a href="index.html">الرئيسية</a></li>
                         <li><a href="products.html">المنتجات</a></li>
-                        <li><a href="about.html">من نحن</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="../common/about.html">من نحن</a></li>
+                        <li><a href="../common/contact.html">اتصل بنا</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -183,28 +249,57 @@
         </footer>
 
         <script>
-            // ===== إعدادات المصادقة =====
-            const API_ORIGIN = "http://127.0.0.1:8000";
-            const API_BASE = `${API_ORIGIN}/api`;
+            // إعداد المستخدم والصلاحيات
             const accessToken = localStorage.getItem('access_token');
+            const role = localStorage.getItem('role');
             const user = JSON.parse(localStorage.getItem('user') || 'null');
+            if (role !== 'buyer' || !accessToken || !user) { window.location.href = "../common/login.html"; }
+            else { document.getElementById('user-name').textContent = "مرحباً بك، " + user.name; }
 
-            if (!accessToken || !user)
-            {
-                window.location.href = "../common/login.html";
-            } else
-            {
-                document.getElementById('user-name').textContent = "مرحباً بك، " + user.name;
-            }
-
-            document.getElementById('logout-btn').addEventListener('click', () =>
+            const logout = () =>
             {
                 localStorage.removeItem('access_token');
+                localStorage.removeItem('role');
                 localStorage.removeItem('user');
                 window.location.href = "../common/login.html";
-            });
+            };
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            document.getElementById('side-logout-btn').addEventListener('click', logout);
 
-            // ===== إشعار عائم =====
+            const sideMenu = document.getElementById('side-menu');
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeBtn = document.getElementById('close-btn');
+            const overlay = document.getElementById('overlay');
+            menuToggle.addEventListener('click', () => { sideMenu.classList.add('open'); overlay.classList.add('show'); });
+            closeBtn.addEventListener('click', () => { sideMenu.classList.remove('open'); overlay.classList.remove('show'); });
+            overlay.addEventListener('click', () => { sideMenu.classList.remove('open'); overlay.classList.remove('show'); });
+
+            // أيقونة السلة
+            const cartIcon = document.getElementById('cart-icon');
+            const cartCountBadge = document.getElementById('cart-count-badge');
+            const sideCartCountBadge = document.getElementById('side-cart-count-badge');
+
+            function updateCartCount(count)
+            {
+                if (count > 0)
+                {
+                    cartCountBadge.style.display = 'inline-block';
+                    cartCountBadge.textContent = count;
+                    sideCartCountBadge.style.display = 'inline-block';
+                    sideCartCountBadge.textContent = count;
+                } else
+                {
+                    cartCountBadge.style.display = 'none';
+                    sideCartCountBadge.style.display = 'none';
+                }
+            }
+
+            cartIcon?.addEventListener('click', () => { window.location.href = "cart.html"; });
+
+            // ===== جلب المنتجات وإضافتها للسلة =====
+            const API_ORIGIN = "https://backend-test-production-196e.up.railway.app/api";
+            const API_BASE = `${API_ORIGIN}`;
+
             function showNotification(msg)
             {
                 const notify = document.getElementById('notify');
@@ -213,69 +308,40 @@
                 setTimeout(() => notify.style.opacity = "0", 2000);
             }
 
-            // حل يُظهر الصورة بشكل صحيح سواء أرسل الـ API image_url أو image
             function resolveImageSrc(p)
             {
-                // أولوية image_url
-                if (p.image_url && typeof p.image_url === 'string')
-                {
-                    return p.image_url.startsWith('http') ? p.image_url : `${API_ORIGIN}/${p.image_url}`;
-                }
-                // بديل: image
-                if (p.image && typeof p.image === 'string')
-                {
-                    return p.image.startsWith('http') ? p.image : `${API_ORIGIN}/${p.image}`;
-                }
-                // صورة افتراضية محلية
+                if (p.image_url && typeof p.image_url === 'string') return p.image_url.startsWith('http') ? p.image_url : `${API_ORIGIN}/${p.image_url}`;
+                if (p.image && typeof p.image === 'string') return p.image.startsWith('http') ? p.image : `${API_ORIGIN}/${p.image}`;
                 return '../images/default_product.png';
             }
 
-            // ===== جلب المنتجات =====
             async function fetchProducts()
             {
                 try
                 {
-                    const res = await fetch(`${API_BASE}/products`, {
-                        headers: { "Authorization": "Bearer " + accessToken }
-                    });
+                    const res = await fetch(`${API_BASE}/products`, { headers: { "Authorization": "Bearer " + accessToken } });
                     if (!res.ok) throw new Error("فشل جلب المنتجات");
                     const products = await res.json();
-
                     const container = document.getElementById('productsContainer');
                     container.innerHTML = "";
-
                     products.forEach(p =>
                     {
                         const price = (p.price != null && !isNaN(Number(p.price))) ? Number(p.price).toFixed(2) : '—';
                         const imgSrc = resolveImageSrc(p);
-
                         const card = document.createElement('div');
                         card.className = "product-card";
                         card.innerHTML = `
-            <img src="${imgSrc}" alt="${p.name}">
-            <h3>${p.name}</h3>
-            <p class="price">السعر: ${price} $</p>
-            <button class="btn-add">إضافة إلى السلة</button>
-            <button class="btn-details">عرض التفاصيل</button>
-          `;
-
-                        // إضافة للسلة
+                        <img src="${imgSrc}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p class="price">السعر: ${price} $</p>
+                        <button class="btn-add">إضافة إلى السلة</button>
+                        <button class="btn-details">عرض التفاصيل</button>
+                    `;
                         card.querySelector('.btn-add').addEventListener('click', () => addToCart(p.id));
-
-                        // عرض التفاصيل (ملاحظة: اسم الملف كما في كودك الأصلي)
-                        card.querySelector('.btn-details').addEventListener('click', () =>
-                        {
-                            window.location.href = `product-details.html?id=${p.id}`;
-                        });
-
+                        card.querySelector('.btn-details').addEventListener('click', () => { window.location.href = `product-details.html?id=${p.id}`; });
                         container.appendChild(card);
                     });
-
-                    if (!products.length)
-                    {
-                        container.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;">لا توجد منتجات متاحة حالياً.</p>`;
-                    }
-
+                    if (!products.length) container.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;">لا توجد منتجات متاحة حالياً.</p>`;
                 } catch (err)
                 {
                     console.error(err);
@@ -283,21 +349,18 @@
                 }
             }
 
-            // ===== إضافة للسلة عبر API =====
             async function addToCart(productId)
             {
                 try
                 {
                     const res = await fetch(`${API_BASE}/cart`, {
                         method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + accessToken
-                        },
+                        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + accessToken },
                         body: JSON.stringify({ product_id: productId, quantity: 1 })
                     });
                     if (!res.ok) throw new Error("فشل الإضافة للسلة");
                     showNotification("تمت إضافة المنتج إلى السلة");
+                    fetchCartCount();
                 } catch (err)
                 {
                     console.error(err);
@@ -305,8 +368,36 @@
                 }
             }
 
+            async function fetchCartCount()
+            {
+                try
+                {
+                    const res = await fetch(`${API_BASE}/cart`, { headers: { "Authorization": "Bearer " + accessToken } });
+                    if (!res.ok) return;
+                    const json = await res.json();
+                    const count = Array.isArray(json) ? json.length : (json.data?.length ?? 0);
+                    updateCartCount(count);
+                } catch (err) { console.warn(err); }
+            }
+
             fetchProducts();
+            fetchCartCount();
+
+            // ===== خاصية البحث =====
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', () =>
+            {
+                const filter = searchInput.value.trim().toLowerCase();
+                const productCards = document.querySelectorAll('.product-card');
+
+                productCards.forEach(card =>
+                {
+                    const name = card.querySelector('h3').textContent.toLowerCase();
+                    card.style.display = name.includes(filter) ? '' : 'none';
+                });
+            });
         </script>
+
     </body>
 
 </html>

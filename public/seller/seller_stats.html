@@ -177,7 +177,7 @@
         </div>
 
         <footer class="main-footer">
-            <div class="footer-container">
+            <div class="container footer-container">
                 <div class="footer-section">
                     <h4>روابط البائع</h4>
                     <ul>
@@ -190,8 +190,8 @@
                 <div class="footer-section">
                     <h4>الدعم والمساعدة</h4>
                     <ul>
-                        <li><a href="../contact.html">اتصل بنا</a></li>
-                        <li><a href="../terms.html">الشروط والأحكام</a></li>
+                        <li><a href="../common/about.html">من نحن</a></li>
+                        <li><a href="../common/contact.html">اتصل بنا</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -200,14 +200,11 @@
                     <p>جميع الحقوق محفوظة</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                تم تطوير المنصة بواسطة فريق التقنية
-            </div>
         </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            const API_BASE = "http://127.0.0.1:8000/api";
+            const API_BASE = "https://backend-test-production-196e.up.railway.app/api";
             const accessToken = localStorage.getItem('access_token');
             if (!accessToken) window.location.href = 'login.html';
 

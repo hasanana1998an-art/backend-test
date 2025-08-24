@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="../css/responsive.css">
         <link rel="stylesheet" href="../css/style.css">
         <style>
+            /* الشبكة الخاصة بالتصنيفات */
             .categories-grid {
                 display: grid;
                 grid-template-columns: repeat(5, 1fr);
-                /* عدد أعمدة ثابت */
                 gap: 20px;
                 margin-top: 20px;
             }
@@ -33,11 +33,8 @@
 
             .category-card img {
                 width: 120px;
-                /* عرض ثابت */
                 height: 120px;
-                /* ارتفاع ثابت */
                 object-fit: cover;
-                /* الصورة تغطي الصندوق بالكامل */
                 border-radius: 8px;
                 margin-bottom: 10px;
             }
@@ -52,7 +49,106 @@
                 color: #555;
                 margin-top: 5px;
             }
+
+            /* تصميم الشريط الجانبي */
+            .side-menu {
+                position: fixed;
+                top: 0;
+                right: -250px;
+                width: 250px;
+                height: 100%;
+                background: var(--main-color);
+                color: #fff;
+                padding: 20px;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+
+            .side-menu.open {
+                right: 0;
+            }
+
+            .side-menu a {
+                display: block;
+                padding: 10px 0;
+                color: #ecf0f1;
+                text-decoration: none;
+                font-size: 1rem;
+                transition: color 0.3s;
+            }
+
+            .side-menu a:hover {
+                color: #f39c12;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 900;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+
+            .menu-toggle {
+                display: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #333;
+            }
+
+            @media (max-width: 991px) {
+                .menu-toggle {
+                    display: block;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .side-menu {
+                    display: none;
+                }
+            }
+
+            /* ===== تعديلات للشاشات المتوسطة والصغيرة ===== */
+            @media (max-width: 991px) {
+                .categories-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .categories-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                /* الفوتر يصبح عمودي */
+                .footer-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .footer-section {
+                    margin-bottom: 20px;
+                }
+            }
+
+            @media (max-width: 400px) {
+                .categories-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
         </style>
+
+
     </head>
 
     <body>
