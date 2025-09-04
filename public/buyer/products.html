@@ -297,8 +297,8 @@
             cartIcon?.addEventListener('click', () => { window.location.href = "cart.html"; });
 
             // ===== جلب المنتجات وإضافتها للسلة =====
-            const API_ORIGIN = "https://backend-test-production-196e.up.railway.app/api";
-            const API_BASE = `${API_ORIGIN}`;
+            const API_ORIGIN = "https://backend-test-production-196e.up.railway.app";
+            const API_BASE = `${API_ORIGIN}/api`;
 
             function showNotification(msg)
             {
@@ -347,6 +347,8 @@
                     console.error(err);
                     showNotification("خطأ في جلب المنتجات");
                 }
+                console.log(products);
+
             }
 
             async function addToCart(productId)
