@@ -308,12 +308,19 @@
                 setTimeout(() => notify.style.opacity = "0", 2000);
             }
 
-            function resolveImageSrc(p)
-            {
-                if (p.image_url && typeof p.image_url === 'string') return p.image_url.startsWith('http') ? p.image_url : `${API_ORIGIN}/${p.image_url}`;
-                if (p.image && typeof p.image === 'string') return p.image.startsWith('http') ? p.image : `${API_ORIGIN}/${p.image}`;
-                return '../images/default_product.png';
-            }
+            function resolveImageSrc(p) {
+    let img = null;
+    if (p.image_url && typeof p.image_url === 'string') img = p.image_url;
+    else if (p.image && typeof p.image === 'string') img = p.image;
+
+    if (img) {
+        if (img.startsWith('http')) return img;
+        // إزالة أي / إضافي
+        return `${API_ORIGIN}/${img.replace(/^\/+/, '')}`;
+    }
+    return '../images/default_product.png';
+}
+
 
             async function fetchProducts()
             {
